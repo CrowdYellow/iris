@@ -5,7 +5,7 @@ import (
 	"github.com/kataras/iris"
 )
 
-func corsSetting(app *iris.Application) (main iris.Party) {
+func corsSetting(app *iris.Application, suffix string) (main iris.Party) {
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.
 		AllowedMethods:   []string{"PUT", "PATCH", "GET", "POST", "OPTIONS", "DELETE"},
@@ -14,6 +14,6 @@ func corsSetting(app *iris.Application) (main iris.Party) {
 		AllowCredentials: true,
 	})
 	/* 定义路由 */
-	main = app.Party("/", crs).AllowMethods(iris.MethodOptions)
+	main = app.Party(suffix, crs).AllowMethods(iris.MethodOptions)
 	return main
 }

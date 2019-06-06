@@ -54,9 +54,8 @@ func Unauthorized(ctx iris.Context, msg string, data interface{}) {
 
 // 404
 func NotFound(ctx iris.Context, msg string,)  {
-	ctx.StatusCode(iris.StatusNotFound)
 	_, _ = ctx.JSON(iris.Map{
-		CODE: iris.StatusOK,
+		CODE: iris.StatusNotFound,
 		MSG:  msg,
 		DATA: nil,
 	})

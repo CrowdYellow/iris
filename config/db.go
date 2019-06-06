@@ -4,6 +4,7 @@ import (
 	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
 	"log"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func DBConnect() *xorm.Engine {
