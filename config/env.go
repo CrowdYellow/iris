@@ -8,4 +8,5 @@ const (
 	DB_DATABASE   = "golang"
 	DB_USERNAME   = "golang"
 	DB_PASSWORD   = "golang"
+	JWT_SECRET    = "Secret"
 )

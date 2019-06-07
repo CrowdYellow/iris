@@ -25,6 +25,7 @@ const (
 	DeletedSuc      string = "删除成功！"
 	DeletedErr      string = "删除失败！"
 	TheUserNotFound string = "用户不存在！"
+	TokenParseErr   string = "token解析错误"
 )
 
 // 200 define

@@ -4,6 +4,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	jwtMiddleware "github.com/iris-contrib/middleware/jwt"
 	"iris/app/Models"
+	"iris/config"
 	"time"
 )
 
@@ -14,7 +15,7 @@ import (
 func JwtHandler() *jwtMiddleware.Middleware {
 	return jwtMiddleware.New(jwtMiddleware.Config{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
-			return []byte("Secret"), nil
+			return []byte(config.JWT_SECRET), nil
 		},
 
 		SigningMethod: jwt.SigningMethodHS256,
@@ -44,6 +45,6 @@ func GenerateToken(user *Models.User) (string, error) {
 	}
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	token, err := tokenClaims.SignedString([]byte("Secret"))
+	token, err := tokenClaims.SignedString([]byte(config.JWT_SECRET))
 	return token, err
 }
