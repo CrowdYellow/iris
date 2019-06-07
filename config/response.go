@@ -24,6 +24,7 @@ const (
 	UpdatedErr      string = "编辑失败！"
 	DeletedSuc      string = "删除成功！"
 	DeletedErr      string = "删除失败！"
+	TheUserNotFound string = "用户不存在！"
 )
 
 // 200 define
@@ -53,7 +54,7 @@ func Unauthorized(ctx iris.Context, msg string, data interface{}) {
 }
 
 // 404
-func NotFound(ctx iris.Context, msg string,)  {
+func NotFound(ctx iris.Context, msg string, ) {
 	_, _ = ctx.JSON(iris.Map{
 		CODE: iris.StatusNotFound,
 		MSG:  msg,
