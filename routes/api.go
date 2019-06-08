@@ -16,7 +16,8 @@ func Api(app *iris.Application) {
 	main.Post("/login", Controllers.Login)
 	main.PartyFunc("/users", func(user router.Party) {
 		user.Use(Middleware.JwtHandler().Serve)
-		user.Get("/{id:uint}", Controllers.ShowUserById)
-		user.Put("/{id:uint}", Controllers.UpdateUserById)
+		user.Get("/", Controllers.Me)
+		user.Put("/name", Controllers.UpdateUsersNameById)
+		user.Put("/password", Controllers.UpdateUserPasswordById)
 	})
 }

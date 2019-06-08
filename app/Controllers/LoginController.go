@@ -22,7 +22,7 @@ func Login(ctx iris.Context) {
 	mUser.Name = user.Name
 
 	// 查找用户
-	has, err := Models.GetUserByName(mUser)
+	has, err := Models.GetUserByModelsUser(mUser)
 
 	if err != nil {
 		ctx.Application().Logger().Errorf("用户[%s]登录失败。%s", user.Name, err.Error())

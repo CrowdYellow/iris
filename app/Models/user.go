@@ -19,7 +19,7 @@ func CreateUser(user ...*User) (int64, error) {
 }
 
 // 根据用户名获取用户
-func GetUserByName(user *User) (bool, error) {
+func GetUserByModelsUser(user *User) (bool, error) {
 	return DB.Get(user)
 }
 
