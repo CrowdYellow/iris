@@ -5,6 +5,11 @@ import (
 	"github.com/kataras/iris"
 )
 
+func Routes(app *iris.Application)  {
+	Web(app)
+	Api(app)
+}
+
 func corsSetting(app *iris.Application, suffix string) (main iris.Party) {
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.

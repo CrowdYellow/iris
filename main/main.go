@@ -16,6 +16,6 @@ func main()  {
 	app.OnErrorCode(iris.StatusInternalServerError, func(ctx iris.Context) {
 		_, _ = ctx.WriteString("Oups something went wrong, try again")
 	})
-	routes.Api(app)
+	routes.Routes(app)
 	_ = app.Run(iris.Addr(config.GO_LANG_PORT), iris.WithCharset("UTF-8"))
 }
