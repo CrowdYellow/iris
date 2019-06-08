@@ -24,9 +24,15 @@ func JwtHandler() *jwtMiddleware.Middleware {
 }
 
 type Claims struct {
-	Id     int64
-	Name   string
-	Enable bool
+	Id        int64
+	Name      string
+	NickName  string
+	Avatar    string
+	Phone     string
+	RoleId    int64
+	Enable    bool
+	CreatedAt time.Time
+	UpdatedAt time.Time
 	jwt.StandardClaims
 }
 
@@ -37,7 +43,13 @@ func GenerateToken(user *Models.User) (string, error) {
 	claims := Claims{
 		user.Id,
 		user.Name,
+		user.NickName,
+		user.Avatar,
+		user.Phone,
+		user.RoleId,
 		user.Enable,
+		user.CreatedAt,
+		user.UpdatedAt,
 		jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),
 			Issuer:    "iris-casbins-jwt",

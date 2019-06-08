@@ -1,36 +1,44 @@
 package Controllers
 
 import (
-	"fmt"
 	"github.com/kataras/iris"
+	"iris/app/Middleware"
 	"iris/app/Models"
 	"iris/config"
 	"time"
 )
 
 func Register(ctx iris.Context) {
-	var user = new(Models.User)
-	//if err := ctx.ReadJSON(&user); err != nil {
-	//	config.Error(ctx, iris.StatusInternalServerError, config.RegisteredErr, nil)
-	//}
+	var (
+		err    error
+		user   = new(Models.User)
+		effect int64
+	)
+	err = ctx.ReadForm(user)
+	if err != nil {
+		ctx.Application().Logger().Errorf("用户[%s]注册失败。%s", user.Name, err.Error())
+		config.Error(ctx, iris.StatusInternalServerError, config.RegisteredErr, nil)
+		return
+	}
 
-	user.Name      = ctx.PostValue("name")
-	user.Phone     = ctx.PostValue("phone")
-	user.Password  = config.AESEncrypt([]byte(ctx.PostValue("password")))
+	user.NickName  = user.Name
+	user.Avatar    = "/images/user/default.jpg"
+
+	user.Password  = config.AESEncrypt([]byte(user.Password))
 	user.RoleId    = 1
 	user.Enable    = true
 	user.CreatedAt = time.Now()
 	user.UpdatedAt = time.Now()
 
-	fmt.Println(ctx.PostValue("name"))
-	fmt.Println(ctx.PostValue("phone"))
-
-	effect, err := Models.CreateUser(user)
+	effect, err = Models.CreateUser(user)
 
 	if effect <= 0 || err != nil {
 		ctx.Application().Logger().Errorf("用户[%s]注册失败。%s", user.Name, err.Error())
+		config.Error(ctx, iris.StatusInternalServerError, config.UserNameExisted, nil)
 		return
 	}
 
-	config.Ok(ctx, config.RegisteredSuc, user)
+	token, err := Middleware.GenerateToken(user)
+
+	config.Ok(ctx, config.RegisteredSuc, ResponseUserWithUser(token, user))
 }
