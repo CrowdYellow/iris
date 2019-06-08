@@ -59,3 +59,9 @@ func ResponseUserWithUser(token string, user *Models.User) (userInfo *UserInfo) 
 	}
 	return
 }
+
+// 退出登陆
+func LoginOut(ctx iris.Context) {
+	config.Ok(ctx, config.Success, nil)
+	return
+}

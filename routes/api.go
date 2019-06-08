@@ -16,5 +16,6 @@ func Api(app *iris.Application) {
 		user.Get("/", Controllers.Me)
 		user.Put("/name", Controllers.UpdateUsersNameById)
 		user.Put("/password", Controllers.UpdateUserPasswordById)
+		user.Post("/logout", Controllers.LoginOut)
 	})
 }
