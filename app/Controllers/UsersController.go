@@ -8,17 +8,17 @@ import (
 )
 
 // 获取token中的用户ID
-func GetThisTokensUserId(ctx iris.Context) int64 {
+func GetThisTokensUserName(ctx iris.Context) string {
 	userMsg := ctx.Values().Get("jwt").(*jwt.Token).Claims.(jwt.MapClaims)
 
-	return int64(userMsg["Id"].(float64))
+	return userMsg["Name"].(string)
 }
 
 // 获取当前用户
 func Me(ctx iris.Context) {
 	var user = new(Models.User)
 
-	user.Id = int64(GetThisTokensUserId(ctx))
+	user.Name = GetThisTokensUserName(ctx)
 
 	// 查找用户
 	has, _ := Models.GetUserByModelsUser(user)
@@ -36,9 +36,9 @@ func Me(ctx iris.Context) {
 func UpdateUsersNameById(ctx iris.Context) {
 	var user = new(Models.User)
 
-	user.Id = int64(GetThisTokensUserId(ctx))
+	user.Name = GetThisTokensUserName(ctx)
 
-	user.Name = ctx.PostValue("name")
+	user.NickName = ctx.PostValue("nickname")
 
 	effect, err := Models.UpdateUserById(user)
 
@@ -58,7 +58,7 @@ func UpdateUserPasswordById(ctx iris.Context) {
 		mUser = new(Models.User)
 	)
 
-	user.Id = int64(GetThisTokensUserId(ctx))
+	user.Name = GetThisTokensUserName(ctx)
 
 	user.Password = ctx.PostValue("oldPassword")
 

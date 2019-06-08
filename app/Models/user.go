@@ -8,7 +8,7 @@ import (
 type User struct {
 	Id        int64
 	Name      string    `xorm:"varchar(200) notnull unique" json:"name" form:"name"`
-	NickName  string    `xorm:"varchar(200) notnull" json:"name" form:"name"`
+	NickName  string    `xorm:"varchar(200) notnull"`
 	Avatar    string    `xorm:"varchar(200) notnull"`
 	Phone     string    `xorm:"varchar(12) notnull unique" json:"phone" form:"phone"`
 	Password  string    `xorm:"varchar(200) notnull" json:"password" form:"password"`
